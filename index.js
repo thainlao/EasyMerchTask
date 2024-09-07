@@ -89,35 +89,66 @@ class Game {
                 this.createRoom(startX, startY, roomWidth, roomHeight);
                 this.rooms.push({ startX, startY, roomWidth, roomHeight }); // Сохраняем координаты новой комнаты
                 
-                // Если это не первая комната, создаем проход к случайной существующей комнате
+                // Если это не первая комната, создаем проход к ближайшей существующей комнате
                 if (i > 0) {
-                    const existingRoom = this.rooms[Math.floor(Math.random() * this.rooms.length)];
-                    this.connectRooms(existingRoom, { startX, startY, roomWidth, roomHeight });
+                    const closestRoom = this.findClosestRoom(startX, startY);
+                    this.connectRooms(closestRoom, { startX, startY, roomWidth, roomHeight });
                 }
             } else {
                 i--; // Если не удалось разместить, повторяем попытку
             }
         }
+        
+        // Создаем проходы между всеми существующими комнатами
+        this.connectAllRooms();
+    }
+    
+    // Метод для соединения всех комнат
+    connectAllRooms() {
+        for (let i = 0; i < this.rooms.length; i++) {
+            for (let j = i + 1; j < this.rooms.length; j++) {
+                this.connectRooms(this.rooms[i], this.rooms[j]);
+            }
+        }
+    }
+    
+    // Метод для поиска ближайшей комнаты
+    findClosestRoom(startX, startY) {
+        let closestRoom = null;
+        let closestDistance = Infinity;
+    
+        this.rooms.forEach((room) => {
+            const centerX = room.startX + Math.floor(room.roomWidth / 2);
+            const centerY = room.startY + Math.floor(room.roomHeight / 2);
+            const distance = Math.abs(centerX - startX) + Math.abs(centerY - startY);
+    
+            if (distance < closestDistance) {
+                closestRoom = room;
+                closestDistance = distance;
+            }
+        });
+    
+        return closestRoom;
     }
     
     // Метод для соединения двух комнат
     connectRooms(roomA, roomB) {
-        const startX = Math.floor((roomA.startX + roomB.startX + roomB.roomWidth) / 2);
-        const startY = Math.floor((roomA.startY + roomA.roomHeight + roomB.startY) / 2);
-        
-        // Создаем вертикальный проход
-        for (let y = Math.min(roomA.startY + roomA.roomHeight, roomB.startY); 
-             y <= Math.max(roomA.startY + roomA.roomHeight, roomB.startY); y++) {
-            this.map[y][startX] = '';
-        }
-        
+        const startX = Math.floor((roomA.startX + roomA.roomWidth / 2));
+        const startY = Math.floor((roomA.startY + roomA.roomHeight / 2));
+        const endX = Math.floor((roomB.startX + roomB.roomWidth / 2));
+        const endY = Math.floor((roomB.startY + roomB.roomHeight / 2));
+    
         // Создаем горизонтальный проход
-        for (let x = Math.min(roomA.startX + roomA.roomWidth, roomB.startX); 
-             x <= Math.max(roomA.startX + roomA.roomWidth, roomB.startX); x++) {
-            this.map[startY][x] = '';
+        for (let x = Math.min(startX, endX); x <= Math.max(startX, endX); x++) {
+            this.map[startY][x] = ''; // Очищаем путь
+        }
+    
+        // Создаем вертикальный проход
+        for (let y = Math.min(startY, endY); y <= Math.max(startY, endY); y++) {
+            this.map[y][endX] = ''; // Очищаем путь
         }
     }
-
+    
     // Проверяем, можно ли разместить комнату
     canPlaceRoom(startX, startY, roomWidth, roomHeight) {
         for (let y = startY; y < startY + roomHeight; y++) {
@@ -129,7 +160,7 @@ class Game {
         }
         return true;
     }
-
+    
     // Создаем комнату, заменяя стены на пол
     createRoom(startX, startY, roomWidth, roomHeight) {
         for (let y = startY; y < startY + roomHeight; y++) {
@@ -355,7 +386,8 @@ class Game {
     checkForEnemyAttack() {
         this.enemies.forEach((enemy) => {
             if (this.isAdjacent(this.hero, enemy)) {
-                this.hero.hp -= 30; // Противники наносят 30 урона
+                let enemyDamage = 30;
+                this.hero.hp -= enemyDamage; // Противники наносят 30 урона
                 this.playSound('heroGetDamage.mp3');
                 this.renderMap()
                 if (this.hero.hp <= 0) {
@@ -559,3 +591,11 @@ class Game {
         audio.play();
     }
 }
+
+let gameInstance = null;
+document.querySelector('.start_game').addEventListener('click', () => {
+    if (!gameInstance || !gameInstance.isGameActive) {
+        gameInstance = new Game();
+        gameInstance.init();
+    }
+});
