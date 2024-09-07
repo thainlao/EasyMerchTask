@@ -10,6 +10,10 @@ to run
 ```
 git clone https://github.com/thainlao/EasyMerchTask
 ```
+
+---
+Технологии: HTML, CSS, Javascript
+---
 run index.html 
 or https://easy-merch-task.vercel.app/
 ---
@@ -114,3 +118,10 @@ class Game {
 	</div>
 </div>
 ```
+
+---
+Планы по улучшению 
+1. Адаптивная верстка
+2. Добавление мобильного управления
+3. Добавления новых уровней и врагов
+---
