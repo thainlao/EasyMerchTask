@@ -12,15 +12,60 @@
 		<script type="text/javascript" src="/shared/3rdparty/jquery/jquery.js" language="javascript1.1"></script>
 	</head>
 	<body>
-		<h1>Игровое поле</h1>
-			<div class="field-box">
-				<div class="field"></div>
+		<div class="container">
+
+			<div class="game_container">
+				<h1>Игровое поле</h1>
+				<div class="field-box">
+					<div class="field"></div>
+				</div>
+	
+				<h1>Инвентарь</h1>
+				<div class="inventory-box">
+					<div class="inventory"></div>
+				</div>
+	
+				<div class="cl"></div>
+				<button class="start_game">Начать игру</button>
 			</div>
 
-			<div class="cl"></div>
-			<button class="start_game">Начать игру</button>
-		<!--h1>Инвентарь</h1>
-		<div class="inventory-box"><div class="inventory"></div></div-->
+			<div class="info">
+				<section>
+					<h3>w a s d - управление</h3>
+					<h3>пробел - удар</h3>
+				</section>
+	
+				<div class="stats">
+					<div class="stat-item">
+						<img src="./images/tile-E.png" alt="Враги" class="stat-icon">
+						<span id="enemies-counter">0</span>
+					</div>
+					<div class="stat-item">
+						<img src="./images/tile-HP.png" alt="Сердца" class="stat-icon">
+						<span id="hearts-counter">0</span>
+					</div>
+					<div class="stat-item">
+						<img src="./images/tile-SW.png" alt="Мечи" class="stat-icon">
+						<span id="swords-counter">0</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+			<div class="modal">
+				<div class="modal-content">
+					<span class="close-btn">&times;</span> <!-- Кнопка-крестик -->
+					<h1>К сожалению, вы проиграли...</h1>
+				</div>
+			</div>
+
+			<div class="modal_win">
+				<div class="modal-content_win">
+					<span class="close-btn_win">&times;</span> <!-- Кнопка-крестик -->
+					<h1>Поздравляю, вы выиграли!</h1>
+				</div>
+			</div>
 
 		<script src="js/Game.js"></script>
 		<script src="js/index.js"></script>
