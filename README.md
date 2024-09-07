@@ -1,6 +1,18 @@
 # Rogue Game Task
 
 ---
+
+https://easy-merch-task.vercel.app/
+
+---
+
+to run 
+```
+git clone https://github.com/thainlao/EasyMerchTask
+```
+run index.html 
+or https://easy-merch-task.vercel.app/
+---
 Так как не было указано, сколько хп у врагов, у героя, я сделал игру на свой взгляд.
 Сделал ее хардкорную...
 
