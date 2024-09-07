@@ -90,26 +90,27 @@ class Game {
     }
 ```
 
-1. Добавил отображение стастики для пользовательского интерфейса.
+1. Добавил отображение статистики для пользовательского интерфейса.
 2. Добавил обработку поражения или победы.
 3. Обработал инвентарь.
-4. Добавил модальные окна с анимацией, с правилами что можно закрыть по всем канонам модалок (кликом за пределы, escape и обычным нажатием на крест) Так же пока открыто модальное окно нельзя играть
+4. Добавил модальные окна с анимацией, с правилами, что можно закрыть по всем канонам модалок (кликом за пределы, escape и обычным нажатием на крест) Так же пока открыто модальное окно нельзя играть
 5. Добавил звуки ударов, поражений, бонусов и тд
-6. Не выполнял адаптивную верстку
+6. Не выполнял адаптивную верстку, не добавлял управление свингами (с телефона)
+7. Управление производиться WASD, wasd, цфыв.
 
 ```
-				<div class="stats">
-					<div class="stat-item">
-						<img src="./images/tile-E.png" alt="Враги" class="stat-icon">
-						<span id="enemies-counter">0</span>
-					</div>
-					<div class="stat-item">
-						<img src="./images/tile-HP.png" alt="Сердца" class="stat-icon">
-						<span id="hearts-counter">0</span>
-					</div>
-					<div class="stat-item">
-						<img src="./images/tile-SW.png" alt="Мечи" class="stat-icon">
-						<span id="swords-counter">0</span>
-					</div>
-				</div>
+<div class="stats">
+	<div class="stat-item">
+		<img src="./images/tile-E.png" alt="Враги" class="stat-icon">
+		<span id="enemies-counter">0</span>
+	</div>
+	<div class="stat-item">
+		<img src="./images/tile-HP.png" alt="Сердца" class="stat-icon">
+		<span id="hearts-counter">0</span>
+	</div>
+	<div class="stat-item">
+		<img src="./images/tile-SW.png" alt="Мечи" class="stat-icon">
+		<span id="swords-counter">0</span>
+	</div>
+</div>
 ```
